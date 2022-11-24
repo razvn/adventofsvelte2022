@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Buttons from './lib/day00/Buttons.svelte'
-	import Case from './lib/day00/Case.svelte';
-	import Score from './lib/day00/Score.svelte';
-	import { CellStyle, type Cell } from './lib/day00/types'
-	import { Game } from './lib/day00/Game';
+  import Buttons from './Buttons.svelte'
+	import Case from './Case.svelte';
+	import Score from './Score.svelte';
+	import { CellStyle, type Cell } from './types'
+	import { Game } from './Game';
 
 	let game = new Game()
 
@@ -48,7 +48,7 @@
 
 <div class="wrapper">
 	<div class="title">
-		<h3><a href="https://adventofvue.com">Advent of <span style="text-decoration:line-through">Vue</span></a> Svelte 2022 - Day 0</h3>
+		<h4>Day 0</h4>
 	</div>
 	<div class="score"><Score players={[game.player1, game.player2]} /></div>
 	<div class="game">
@@ -70,11 +70,6 @@
 
 	<div class="status">
 		{message()}
-	</div>
-	
-	<div class="status">
-		<hr>
-		<a href="/">index</a>
 	</div>
 </div>
 
