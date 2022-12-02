@@ -34,7 +34,7 @@
   <div class="title">
     <Problem title="Day 1">
       You're tasked with building a debounced search bar for products from
-      DummyJSON's product API. In case you're not familiar with the concept of
+      <a href="https://dummyjson.com/docs/products">DummyJSON's product API</a>. In case you're not familiar with the concept of
       debouncing, it's a technique that allows one to delay a function's
       execution until a specific amount of time has elapsed since the last call.
       <br />For this challenge, you'll need to add a 300-millisecond delay to
@@ -60,7 +60,7 @@
     {:then responses}
       <ul>
         {#each responses as resp}
-          <li>{resp.title}</li>
+          <li>{resp.title} - ${resp.price}</li>
         {/each}
       </ul>
 	  {:catch error}
