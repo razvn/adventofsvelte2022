@@ -1,10 +1,11 @@
 <script lang="ts">
   import Problem from "../Problem.svelte";
+  import type { Product } from "./types";
 
   let timer;
   const msToWait = 300;
   let responseReceived = false;
-  const getResult = async (param: string) => {
+  const getResult = async (param: string): Promise<Product[]> => {
     responseReceived = false;
     if (param) {
       const response = await fetch(
@@ -13,7 +14,7 @@
       if (response.ok) {
         const data = await response.json();
         responseReceived = true;
-        return data.products;
+        return data.products.map(e => { return {title: e.title, price: e.price}});
       } else {
         throw new Error("Error while loading data");
       }
@@ -37,18 +38,28 @@
     <Problem title="Day 1">
       You're tasked with building a debounced search bar for products from
       <a href="https://dummyjson.com/docs/products">DummyJSON's product API</a>.
-      In case you're not familiar with the concept of debouncing, it's a
-      technique that allows one to delay a function's execution until a specific
-      amount of time has elapsed since the last call.
-      <br />For this challenge, you'll need to add a 300-millisecond delay to
-      the findProducts function. You can make use of readily available debounce
-      implementations, or try writing one yourself.
-      <br />You'll also need to display a generic loading spinner/message, and
-      if the function executes successfully, place suggested products' names and
-      price tags inside an unordered list. Otherwise, use native alert() to show
-      a generic error message.
-      <br />If the search term gets reset back to an empty string, clear the
-      search suggestions too.
+      <ul>
+        <li>
+          Debouncing, it's a technique that allows one to delay a function's
+          execution until a specific amount of time has elapsed since the last
+          call.
+        </li>
+        <li>
+          For this challenge, you'll need to add a 300-millisecond delay to the
+          findProducts function. You can make use of readily available debounce
+          implementations, or try writing one yourself.
+        </li>
+        <li>
+          You'll also need to display a generic loading spinner/message, and if
+          the function executes successfully, place suggested products' names
+          and price tags inside an unordered list. Otherwise, use native alert()
+          to show a generic error message.
+        </li>
+        <li>
+          If the search term gets reset back to an empty string, clear the
+          search suggestions too.
+        </li>
+      </ul>
     </Problem>
   </div>
   <div class="line">
@@ -62,8 +73,8 @@
       <p>... waiting</p>
     {:then responses}
       <ul>
-        {#each responses as resp}
-          <li>{resp.title} - <b>${resp.price}</b></li>
+        {#each responses as {title, price} }
+          <li>{title} - <b>${price}</b></li>
         {/each}
       </ul>
       {#if responseReceived && responses.length == 0}
@@ -88,7 +99,6 @@
     border: 1px solid rgb(128, 128, 128);
     float: left;
     width: 300px;
-    background: #f1f1f1;
   }
   .title {
     flex: 100%;
