@@ -1,23 +1,25 @@
 <script lang="ts">
   import Problem from "../Problem.svelte";
-  
+
   let timer;
   const msToWait = 300;
-
+  let responseReceived = false;
   const getResult = async (param: string) => {
+    responseReceived = false;
     if (param) {
       const response = await fetch(
         `https://dummyjson.com/products/search?q=${param}`
       );
       if (response.ok) {
         const data = await response.json();
+        responseReceived = true;
         return data.products;
       } else {
-		throw new Error("Error while loading data")
-	  }
+        throw new Error("Error while loading data");
+      }
     } else {
-		return Promise.resolve([])
-	}
+      return Promise.resolve([]);
+    }
   };
 
   let promise = Promise.resolve([]);
@@ -34,9 +36,10 @@
   <div class="title">
     <Problem title="Day 1">
       You're tasked with building a debounced search bar for products from
-      <a href="https://dummyjson.com/docs/products">DummyJSON's product API</a>. In case you're not familiar with the concept of
-      debouncing, it's a technique that allows one to delay a function's
-      execution until a specific amount of time has elapsed since the last call.
+      <a href="https://dummyjson.com/docs/products">DummyJSON's product API</a>.
+      In case you're not familiar with the concept of debouncing, it's a
+      technique that allows one to delay a function's execution until a specific
+      amount of time has elapsed since the last call.
       <br />For this challenge, you'll need to add a 300-millisecond delay to
       the findProducts function. You can make use of readily available debounce
       implementations, or try writing one yourself.
@@ -60,11 +63,14 @@
     {:then responses}
       <ul>
         {#each responses as resp}
-          <li>{resp.title} - ${resp.price}</li>
+          <li>{resp.title} - <b>${resp.price}</b></li>
         {/each}
       </ul>
-	  {:catch error}
-	  <p style="color: red">{error.message }</p>
+      {#if responseReceived && responses.length == 0}
+        <p style="color: #ffc107">nothing found matching</p>
+      {/if}
+    {:catch error}
+      <p style="color: red">{error.message}</p>
     {/await}
   </div>
 </div>
@@ -79,7 +85,7 @@
   input {
     padding: 10px;
     font-size: 17px;
-    border: 1px solid grey;
+    border: 1px solid rgb(128, 128, 128);
     float: left;
     width: 300px;
     background: #f1f1f1;
