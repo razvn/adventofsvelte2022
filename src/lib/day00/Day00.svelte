@@ -4,6 +4,7 @@
 	import Score from './Score.svelte';
 	import { CellStyle, type Cell } from './types'
 	import { Game } from './Game';
+  import Problem from '../Problem.svelte';
 
 	let game = new Game()
 
@@ -47,8 +48,10 @@
 </script>
 
 <div class="wrapper">
-	<div class="title">
-		<h4>Day 0</h4>
+	<div class="title" style="padding-bottom: 10px;">
+		 <Problem title="Day 0">
+			Build a Tic Tac Toe game
+		 </Problem>
 	</div>
 	<div class="score"><Score players={[game.player1, game.player2]} /></div>
 	<div class="game">
@@ -78,6 +81,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		text-align: center;
+		width: 100%;
 	}
 	.title {
 		flex: 100%;
