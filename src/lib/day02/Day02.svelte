@@ -49,7 +49,7 @@
       </ul>
     </Problem>
   </div>
-  <div class="line">
+  <div class="title">
     <h5>Christmas Joke</h5>
   </div>
   <div class="line">
