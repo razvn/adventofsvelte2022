@@ -1,23 +1,14 @@
 <script lang="ts">
-  import { fly } from "svelte/transition";
   import Problem from "../Problem.svelte";
+  import type { Countdown } from "./types";
 
-  type Countdown = {
-    days: number,
-    hours: number,
-    minutes: number,
-    seconds: number,
-  }
-
-  const one_day = 60 * 60 * 24
-  let current_date = new Date()
   const christmas_day = (date: Date): Date => {
-    let year = (current_date.getMonth() == 11 && current_date.getDate() >= 25) ? current_date.getFullYear() + 1 : current_date.getFullYear()
+    let year = (date.getMonth() == 11 && date.getDate() >= 25) ? date.getFullYear() + 1 : date.getFullYear()
     return new Date(year, 11, 25)
   }
 
   const calc_remain = (date: Date): Countdown => {
-    let seconds = Math.floor((christmas_day(current_date).getTime() - current_date.getTime())/1000)
+    let seconds = Math.floor((christmas_day(date).getTime() - date.getTime())/1000)
     let minutes = Math.floor(seconds/60)
     let hours = Math.floor(minutes/60)
     let days = Math.floor(hours/24)
@@ -27,10 +18,10 @@
     seconds = seconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60)
     return {days, hours, minutes, seconds}
   }
-  let { days, hours, minutes, seconds } = calc_remain(current_date) 
+  let { days, hours, minutes, seconds } = calc_remain(new Date()) 
+
   const reload = () => setTimeout(() => {
-    current_date = new Date()
-    const countdown = calc_remain(current_date)
+    const countdown = calc_remain(new Date())
     days = countdown.days
     hours = countdown.hours
     minutes = countdown.minutes
