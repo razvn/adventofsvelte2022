@@ -1,4 +1,5 @@
 <script lang="ts">
+  import santa from '/src/assets/santa.svg';
   export let from: string = "";
   export let to: string = "";
 </script>
@@ -6,7 +7,7 @@
 <div class="container">
     <div class="gift">
       <div class="border">
-        <img src="/src/assets/santa.svg" class="img" alt=""/>
+        <img src="{santa}" class="img" alt=""/>
         <div class="text">
           <h1 class="title">Happy Holidays!</h1>
           <div class="label">TO: {to}</div>
@@ -29,8 +30,8 @@
   }
   .img {
     max-width: 12em;
+    margin: 0.30rem;
   }
-
   .gift {
     padding: 1rem;
     display: flex;
