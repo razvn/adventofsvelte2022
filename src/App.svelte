@@ -5,6 +5,7 @@
   import Day02 from "./lib/day02/Day02.svelte";
   import Day03 from "./lib/day03/Day03.svelte";
   import Day04 from "./lib/day04/Day04.svelte";
+  import Day05 from "./lib/day05/Day05.svelte";
 
   const components = [
     { name: "Day 00", component: Day00 },
@@ -12,6 +13,7 @@
     { name: "Day 02", component: Day02 },
     { name: "Day 03", component: Day03 },
     { name: "Day 04", component: Day04 },
+    { name: "Day 05", component: Day05 },
   ];
 
   let componentIndex = -1;
